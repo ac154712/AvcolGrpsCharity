@@ -1,4 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using AvcolGrpsCharity.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("AvcolGrpsCharityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AvcolGrpsCharityDbContextConnection' not found.");
+
+builder.Services.AddDbContext<AvcolGrpsCharityDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AvcolGrpsCharityDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

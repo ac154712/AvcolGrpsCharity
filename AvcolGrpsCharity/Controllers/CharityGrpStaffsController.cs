@@ -59,7 +59,7 @@ namespace AvcolGrpsCharity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StaffmemberID,StaffMember_name,StaffMember_email,StaffMember_phonenum,SignedCharityGrpId")] CharityGrpStaff charityGrpStaff)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(charityGrpStaff);
                 await _context.SaveChangesAsync();
@@ -98,7 +98,7 @@ namespace AvcolGrpsCharity.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

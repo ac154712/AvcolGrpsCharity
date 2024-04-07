@@ -59,7 +59,7 @@ namespace AvcolGrpsCharity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryID,Category_name,SignedCharityGrpId")] CharityCategory charityCategory)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(charityCategory);
                 await _context.SaveChangesAsync();
@@ -98,7 +98,7 @@ namespace AvcolGrpsCharity.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

@@ -9,6 +9,7 @@ namespace AvcolGrpsCharity.Models
         public int DonationID { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal DonationAmount { get; set; }
 
         public string DonationMessage { get; set; }

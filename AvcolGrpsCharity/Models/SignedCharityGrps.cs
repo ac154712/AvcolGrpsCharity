@@ -1,10 +1,28 @@
-﻿namespace AvcolGrpsCharity.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AvcolGrpsCharity.Models
 {
     public class SignedCharityGrps
     {
-        public int DonationID { get; set; }
-        public int DonationAmount { get; set; }
-        public string DonationMessage { get; set; }
-        public DateTime DonationDate { get; set; }
+        [Key]
+        public int CharityGrpID { get; set; }
+
+        [Required]
+        public string ChartyGrp_Name { get; set; }
+
+        [Required]
+        public string CharityGrp_description { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string CharityGrp_email { get; set; }
+
+        [Required]
+        [Phone]
+        public string CharityGrp_phone { get; set; }
+
+        public ICollection<Donors> DonorsId { get; set; }
+        public ICollection<CharityGrpStaff> CharityGrpStaffId { get; set; }
+
     }
 }

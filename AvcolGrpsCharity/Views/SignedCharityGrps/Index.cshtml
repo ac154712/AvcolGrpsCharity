@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AvcolGrpsCharity.Models.SignedCharityGrps>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ChartyGrp_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharityGrp_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharityGrp_email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharityGrp_phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChartyGrp_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharityGrp_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharityGrp_email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharityGrp_phone)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CharityGrpID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CharityGrpID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CharityGrpID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

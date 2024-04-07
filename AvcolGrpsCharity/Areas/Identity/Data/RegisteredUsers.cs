@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Identity;
 namespace AvcolGrpsCharity.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the AvcolCharitySoftwareUser class
-public class RegisteredUsers : IdentityUser
-{
-    [Key]
+public class RegisteredUsers  :  IdentityUser
+{ 
     public int MemberID { get; set; }
 
     [Required]

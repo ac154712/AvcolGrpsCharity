@@ -1,0 +1,42 @@
+﻿@model AvcolGrpsCharity.Models.SignedCharityGrps
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SignedCharityGrps</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChartyGrp_Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChartyGrp_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CharityGrp_description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CharityGrp_description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CharityGrp_email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CharityGrp_email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CharityGrp_phone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CharityGrp_phone)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CharityGrpID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,49 @@
+﻿@model AvcolGrpsCharity.Models.CharityGrpStaff
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CharityGrpStaff</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="StaffmemberID" />
+            <div class="form-group">
+                <label asp-for="StaffMember_name" class="control-label"></label>
+                <input asp-for="StaffMember_name" class="form-control" />
+                <span asp-validation-for="StaffMember_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember_email" class="control-label"></label>
+                <input asp-for="StaffMember_email" class="form-control" />
+                <span asp-validation-for="StaffMember_email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember_phonenum" class="control-label"></label>
+                <input asp-for="StaffMember_phonenum" class="form-control" />
+                <span asp-validation-for="StaffMember_phonenum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignedCharityGrpId" class="control-label"></label>
+                <select asp-for="SignedCharityGrpId" class="form-control" asp-items="ViewBag.SignedCharityGrpId"></select>
+                <span asp-validation-for="SignedCharityGrpId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

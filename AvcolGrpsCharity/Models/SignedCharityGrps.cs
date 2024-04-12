@@ -18,7 +18,7 @@ namespace AvcolGrpsCharity.Models
         public string CharityGrp_email { get; set; }
 
         [Required]
-        [Phone] // using the phone format for this data field
+        [RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format")] // using the phone format for this data field
         public string CharityGrp_phone { get; set; }
 
         public ICollection<Donors> DonorsId { get; set; } // colecting DonorsId from Donors table

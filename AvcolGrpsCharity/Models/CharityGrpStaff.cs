@@ -16,8 +16,8 @@ namespace AvcolGrpsCharity.Models
         public string StaffMember_email { get; set; }
 
         [Required(AllowEmptyStrings = true)]
-        [Phone]
-        public int StaffMember_phonenum { get; set; }
+        [RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format")]
+        public string StaffMember_phonenum { get; set; }
 
         [ForeignKey("SignedCharityGrps")]
         public int SignedCharityGrpId { get; set; }

@@ -48,7 +48,7 @@ namespace AvcolGrpsCharity.Controllers
         // GET: CharityGrpStaffs/Create
         public IActionResult Create()
         {
-            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrp_description");
+            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace AvcolGrpsCharity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrp_description", charityGrpStaff.SignedCharityGrpId);
+            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID", charityGrpStaff.SignedCharityGrpId);
             return View(charityGrpStaff);
         }
 
@@ -82,7 +82,7 @@ namespace AvcolGrpsCharity.Controllers
             {
                 return NotFound();
             }
-            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrp_description", charityGrpStaff.SignedCharityGrpId);
+            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID", charityGrpStaff.SignedCharityGrpId);
             return View(charityGrpStaff);
         }
 
@@ -118,7 +118,7 @@ namespace AvcolGrpsCharity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrp_description", charityGrpStaff.SignedCharityGrpId);
+            ViewData["SignedCharityGrpId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID", charityGrpStaff.SignedCharityGrpId);
             return View(charityGrpStaff);
         }
 

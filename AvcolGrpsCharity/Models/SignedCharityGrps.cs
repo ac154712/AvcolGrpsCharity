@@ -8,9 +8,11 @@ namespace AvcolGrpsCharity.Models
         public int CharityGrpID { get; set; }
 
         [Required] // making it so that it cant be null
+        [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string ChartyGrp_Name { get; set; }
 
         [Required]
+        [StringLength(500, ErrorMessage = "Description cannot be over 500 characters.")]
         public string CharityGrp_description { get; set; }
 
         [Required]

@@ -48,7 +48,7 @@ namespace AvcolGrpsCharity.Controllers
         // GET: Donations/Create
         public IActionResult Create()
         {
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "Donor_email");
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace AvcolGrpsCharity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "Donor_email", donations.DonorID);
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.DonorID);
             return View(donations);
         }
 
@@ -82,7 +82,7 @@ namespace AvcolGrpsCharity.Controllers
             {
                 return NotFound();
             }
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "Donor_email", donations.DonorID);
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID" , donations.DonorID);
             return View(donations);
         }
 
@@ -118,7 +118,7 @@ namespace AvcolGrpsCharity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "Donor_email", donations.DonorID);
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.DonorID);
             return View(donations);
         }
 

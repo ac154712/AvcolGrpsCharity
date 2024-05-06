@@ -11,6 +11,7 @@ namespace AvcolGrpsCharity.Models
         public int DonorID { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string Donor_name { get; set; }
 
         [Required]

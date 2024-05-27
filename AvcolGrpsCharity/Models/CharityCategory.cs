@@ -10,9 +10,11 @@ namespace AvcolGrpsCharity.Models
 
         [Required]
         [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
+        [Display(Name = "Category: ")]
         public string Category_name { get; set; }
 
         [ForeignKey("SignedCharityGrps")]
+        [Display(Name = "Charity Group: ")]
         public int SignedCharityGrpId { get; set; }
         public SignedCharityGrps SignedCharityGrps { get; set; }
     }

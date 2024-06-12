@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolGrpsCharity.Areas.Identity.Data;
 using AvcolGrpsCharity.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AvcolGrpsCharity.Controllers
 {
@@ -20,10 +21,29 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: Donors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var avcolGrpsCharityDbContext = _context.Donors.Include(d => d.SignedCharityGrps);
-            return View(await avcolGrpsCharityDbContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            var signedCharityGrps = from s in _context.Donors
+                                    select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                signedCharityGrps = signedCharityGrps.Where(s => s.Donor_name.Contains(searchString)
+                                       || s.Donor_email.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.Donor_name);
+                    break;
+                case "":
+                    signedCharityGrps = signedCharityGrps.OrderBy(s => s.Donor_email);
+                    break;
+            }
+            return View(await signedCharityGrps.AsNoTracking().ToListAsync());
         }
 
         // GET: Donors/Details/5

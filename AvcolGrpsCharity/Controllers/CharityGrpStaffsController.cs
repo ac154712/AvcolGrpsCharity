@@ -20,10 +20,29 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: CharityGrpStaffs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var avcolGrpsCharityDbContext = _context.CharityGrpStaff.Include(c => c.SignedCharityGrps);
-            return View(await avcolGrpsCharityDbContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            var signedCharityGrps = from s in _context.CharityGrpStaff
+                                    select s;
+            if (!String.IsNullOrEmpty(searchString) )
+            {
+                signedCharityGrps = signedCharityGrps.Where(s => s.StaffMember_name.Contains(searchString)
+                                       || s.StaffMember_name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.StaffMember_name);
+                    break;
+                case "":
+                    signedCharityGrps = signedCharityGrps.OrderBy(s => s.StaffMember_name);
+                    break;
+            }
+            return View(await signedCharityGrps.AsNoTracking().ToListAsync());
         }
 
         // GET: CharityGrpStaffs/Details/5

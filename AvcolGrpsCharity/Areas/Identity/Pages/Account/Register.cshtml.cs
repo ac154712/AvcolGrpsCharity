@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -74,6 +75,19 @@ namespace AvcolGrpsCharity.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+
+            [Required]
+            [StringLength(50, ErrorMessage = "Username must only contain up to 50 characters.")]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            [Phone]
+            [Required(AllowEmptyStrings = true)]
+            [RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format (+64 [10 numbers]):")]
+            [Display(Name = "Phone Number: ")]
+            public string PhoneNum { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]

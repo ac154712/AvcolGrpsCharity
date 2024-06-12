@@ -20,10 +20,25 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: CharityCategories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var avcolGrpsCharityDbContext = _context.CharityCategory.Include(c => c.SignedCharityGrps);
-            return View(await avcolGrpsCharityDbContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            var signedCharityGrps = from s in _context.CharityCategory
+                                    select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                signedCharityGrps = signedCharityGrps.Where(s => s.Category_name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.Category_name);
+                    break;
+            }
+            return View(await signedCharityGrps.AsNoTracking().ToListAsync());
         }
 
         // GET: CharityCategories/Details/5

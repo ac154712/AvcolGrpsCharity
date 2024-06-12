@@ -1,47 +1,63 @@
 ﻿@model IEnumerable<AvcolGrpsCharity.Models.Donors>
 
-@{
+    @{
     ViewData["Title"] = "Index";
-}
+    }
 
-<h1>Donors</h1>
+    <h1>Donors</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Donor_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Donor_email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SignedCharityGrps)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Donor_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Donor_email)
-            </td>
-            <td>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-default" /> |
+                <a asp-action="Index">Back to Full List</a>
+            </p>
+        </div>
+    </form> @* This is the search functionaliy *@
+
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"> CharityGroupName</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor_name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor_email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SignedCharityGrps)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Donor_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Donor_email)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.SignedCharityGrps.ChartyGrp_Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DonorID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DonorID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DonorID">Delete</a>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DonorID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DonorID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DonorID">Delete</a>
+                </td>
+            </tr>
 }
-    </tbody>
-</table>
+        </tbody>
+    </table>

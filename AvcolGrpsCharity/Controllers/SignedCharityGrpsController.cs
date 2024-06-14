@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolGrpsCharity.Areas.Identity.Data;
 using AvcolGrpsCharity.Models;
+using System.Drawing.Printing;
+using AvcolGrpsCharity;
 
 namespace AvcolGrpsCharity.Controllers
 {
@@ -20,11 +22,23 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: SignedCharityGrps
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter,int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-             ViewData["CurrentFilter"] = searchString;
+            
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
 
             var signedCharityGrps = from s in _context.SignedCharityGrps
                                     select s;
@@ -42,8 +56,12 @@ namespace AvcolGrpsCharity.Controllers
                     signedCharityGrps = signedCharityGrps.OrderBy(s => s.ChartyGrp_Name);
                     break;
             }
-            return View(await signedCharityGrps.AsNoTracking().ToListAsync());
+
+            int pageSize = 5;
+            
+            return View(await PaginatedList<SignedCharityGrps>.CreateAsync(signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
 
         // GET: SignedCharityGrps/Details/5
         public async Task<IActionResult> Details(int? id)

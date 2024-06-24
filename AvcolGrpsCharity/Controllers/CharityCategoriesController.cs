@@ -20,7 +20,8 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: CharityCategories
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter,
+    int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
@@ -28,6 +29,16 @@ namespace AvcolGrpsCharity.Controllers
 
             var signedCharityGrps = from s in _context.CharityCategory
                                     select s;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 signedCharityGrps = signedCharityGrps.Where(s => s.Category_name.Contains(searchString));
@@ -38,7 +49,9 @@ namespace AvcolGrpsCharity.Controllers
                     signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.Category_name);
                     break;
             }
-            return View(await signedCharityGrps.AsNoTracking().ToListAsync());
+            int pageSize = 5;
+
+            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: CharityCategories/Details/5

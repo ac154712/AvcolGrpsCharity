@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AvcolGrpsCharity.Models.Donors>
+﻿@model PaginatedList<AvcolGrpsCharity.Models.Donors>
 
     @{
     ViewData["Title"] = "Index";
@@ -29,13 +29,13 @@
                      <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"> CharityGroupName</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Donor_name)
+                    Donor_name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Donor_email)
+                    Donor_email
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SignedCharityGrps)
+                    SignedCharityGrps
                 </th>
                 <th></th>
             </tr>
@@ -61,3 +61,22 @@
 }
         </tbody>
     </table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

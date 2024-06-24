@@ -20,7 +20,8 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: Donations
-        public async Task<IActionResult> Index(string sortOrder, int? searchNo)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, int? searchNo, string currentFilter,
+    int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
@@ -28,6 +29,16 @@ namespace AvcolGrpsCharity.Controllers
 
             var signedCharityGrps = from s in _context.Donations
                                     select s;
+
+            if (searchNo != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             if (searchNo.HasValue)
             {
                 signedCharityGrps = signedCharityGrps.Where(s => s.DonationAmount == searchNo.Value);
@@ -41,7 +52,9 @@ namespace AvcolGrpsCharity.Controllers
                     signedCharityGrps = signedCharityGrps.OrderBy(s => s.DonationDate);
                     break;
             }
-            return View(await signedCharityGrps.AsNoTracking().ToListAsync());
+            int pageSize = 5;
+
+            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Donations/Details/5

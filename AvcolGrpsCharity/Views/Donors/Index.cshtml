@@ -26,13 +26,10 @@
         <thead>
             <tr>
                 <th>
-                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"> CharityGroupName</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Donor_name</a>
                 </th>
                 <th>
-                    Donor_name
-                </th>
-                <th>
-                    Donor_email
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Donor_email</a>
                 </th>
                 <th>
                     SignedCharityGrps
@@ -41,7 +38,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Donor_name)

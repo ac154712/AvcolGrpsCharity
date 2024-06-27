@@ -9,6 +9,7 @@ using AvcolGrpsCharity.Areas.Identity.Data;
 using AvcolGrpsCharity.Models;
 using System.Drawing.Printing;
 using AvcolGrpsCharity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AvcolGrpsCharity.Controllers
 {
@@ -42,6 +43,7 @@ namespace AvcolGrpsCharity.Controllers
 
             var signedCharityGrps = from s in _context.SignedCharityGrps
                                     select s;
+
             if (!String.IsNullOrEmpty(searchString))
             {
             signedCharityGrps = signedCharityGrps.Where(s => s.ChartyGrp_Name.Contains(searchString)
@@ -81,6 +83,7 @@ namespace AvcolGrpsCharity.Controllers
             return View(signedCharityGrps);
         }
 
+
         // GET: SignedCharityGrps/Create
         public IActionResult Create()
         {
@@ -92,6 +95,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize] //this attribute makes it so that only registered users can access this create method (minimum security requirements)
         public async Task<IActionResult> Create([Bind("CharityGrpID,ChartyGrp_Name,CharityGrp_description,CharityGrp_email,CharityGrp_phone")] SignedCharityGrps signedCharityGrps)
         {
             if (!ModelState.IsValid)
@@ -124,6 +128,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("CharityGrpID,ChartyGrp_Name,CharityGrp_description,CharityGrp_email,CharityGrp_phone")] SignedCharityGrps signedCharityGrps)
         {
             if (id != signedCharityGrps.CharityGrpID)
@@ -175,6 +180,7 @@ namespace AvcolGrpsCharity.Controllers
         // POST: SignedCharityGrps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var signedCharityGrps = await _context.SignedCharityGrps.FindAsync(id);

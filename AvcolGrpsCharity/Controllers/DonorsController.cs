@@ -21,16 +21,11 @@ namespace AvcolGrpsCharity.Controllers
         }
 
         // GET: Donors
-        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter,
-    int? pageNumber)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewData["CurrentFilter"] = searchString;
+            
             ViewData["CurrentSort"] = sortOrder;
-
-            var signedCharityGrps = from s in _context.Donors
-                                    select s;
 
             if (searchString != null)
             {
@@ -40,24 +35,29 @@ namespace AvcolGrpsCharity.Controllers
             {
                 searchString = currentFilter;
             }
+            ViewData["CurrentFilter"] = searchString;
+
+            var donors = from s in _context.Donors
+                                    select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                signedCharityGrps = signedCharityGrps.Where(s => s.Donor_name.Contains(searchString)
+                donors = donors.Where(s => s.Donor_name.Contains(searchString)
                                        || s.Donor_email.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.Donor_name);
+                    donors = donors.OrderByDescending(s => s.Donor_name);
                     break;
                 case "":
-                    signedCharityGrps = signedCharityGrps.OrderBy(s => s.Donor_email);
+                    donors = donors.OrderBy(s => s.Donor_email);
                     break;
             }
+
             int pageSize = 5;
 
-            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)donors.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Donors/Details/5

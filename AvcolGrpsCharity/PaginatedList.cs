@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AvcolGrpsCharity.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AvcolGrpsCharity
@@ -29,5 +30,6 @@ namespace AvcolGrpsCharity
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
+
     }
 }

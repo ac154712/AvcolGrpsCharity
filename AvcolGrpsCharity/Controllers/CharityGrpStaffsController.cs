@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolGrpsCharity.Areas.Identity.Data;
 using AvcolGrpsCharity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AvcolGrpsCharity.Controllers
 {
@@ -89,6 +90,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("StaffmemberID,StaffMember_name,StaffMember_email,StaffMember_phonenum,SignedCharityGrpId")] CharityGrpStaff charityGrpStaff)
         {
             if (!ModelState.IsValid)
@@ -123,6 +125,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("StaffmemberID,StaffMember_name,StaffMember_email,StaffMember_phonenum,SignedCharityGrpId")] CharityGrpStaff charityGrpStaff)
         {
             if (id != charityGrpStaff.StaffmemberID)
@@ -176,6 +179,7 @@ namespace AvcolGrpsCharity.Controllers
         // POST: CharityGrpStaffs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var charityGrpStaff = await _context.CharityGrpStaff.FindAsync(id);

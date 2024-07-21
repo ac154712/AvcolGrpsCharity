@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolGrpsCharity.Areas.Identity.Data;
 using AvcolGrpsCharity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AvcolGrpsCharity.Controllers
 {
@@ -85,6 +86,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("CategoryID,Category_name,SignedCharityGrpId")] CharityCategory charityCategory)
         {
             if (!ModelState.IsValid)
@@ -119,6 +121,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryID,Category_name,SignedCharityGrpId")] CharityCategory charityCategory)
         {
             if (id != charityCategory.CategoryID)
@@ -172,6 +175,7 @@ namespace AvcolGrpsCharity.Controllers
         // POST: CharityCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var charityCategory = await _context.CharityCategory.FindAsync(id);

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolGrpsCharity.Areas.Identity.Data;
 using AvcolGrpsCharity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AvcolGrpsCharity.Controllers
 {
@@ -88,6 +89,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("DonationID,DonationAmount,DonationMessage,DonationDate,DonorID")] Donations donations)
         {
             if (!ModelState.IsValid)
@@ -122,6 +124,7 @@ namespace AvcolGrpsCharity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("DonationID,DonationAmount,DonationMessage,DonationDate,DonorID")] Donations donations)
         {
             if (id != donations.DonationID)
@@ -175,6 +178,7 @@ namespace AvcolGrpsCharity.Controllers
         // POST: Donations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var donations = await _context.Donations.FindAsync(id);

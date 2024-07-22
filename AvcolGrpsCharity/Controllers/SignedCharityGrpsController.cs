@@ -27,9 +27,9 @@ namespace AvcolGrpsCharity.Controllers
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : ""; // Sorting parameters for name
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date"; // Sorting parameters for date
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date"; // sortsa parameters for date
 
-            ViewData["CurrentSort"] = sortOrder; // Preserving the current sort order
+            ViewData["CurrentSort"] = sortOrder; // preserves the current sort order
 
             if (searchString != null)  // If a new search string is provided, reset the page number to 1
             {
@@ -40,17 +40,17 @@ namespace AvcolGrpsCharity.Controllers
                 searchString = currentFilter; // Otherwise, use the current filter
             }
 
-            ViewData["CurrentFilter"] = searchString; // Storing the current filter value
+            ViewData["CurrentFilter"] = searchString; // stores the current filter value
 
-            var signedCharityGrps = from s in _context.SignedCharityGrps select s; // Fetching signed charity groups from the database
+            var signedCharityGrps = from s in _context.SignedCharityGrps select s; // fetches signed charity groups from the database
 
-            if (!String.IsNullOrEmpty(searchString)) // Filtering the charity groups based on the search string
+            if (!String.IsNullOrEmpty(searchString)) // filters the charity groups based on the search string
             {
                 signedCharityGrps = signedCharityGrps.Where(s => s.ChartyGrp_Name.Contains(searchString)
                                        || s.CharityGrp_description.Contains(searchString));
             }
 
-            switch (sortOrder) // Sorting the charity groups based on the specified sort order
+            switch (sortOrder) // sorts the charity groups based on the specified sort order
             {
                 case "name_desc":
                     signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.ChartyGrp_Name);
@@ -60,7 +60,7 @@ namespace AvcolGrpsCharity.Controllers
                     break;
             }
 
-            int pageSize = 5;  // Setting the page size for pagination
+            int pageSize = 5;  // sets the page size for pagination
 
             return View(await PaginatedList<SignedCharityGrps>.CreateAsync(signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize)); // Returning the paginated list of charity groups to the view
         }
@@ -100,9 +100,9 @@ namespace AvcolGrpsCharity.Controllers
         {
             if (!ModelState.IsValid)  // If the model state is invalid
             {
-                _context.Add(signedCharityGrps);    // Add the new charity group to the database
-                await _context.SaveChangesAsync();   // Save changes asynchronously
-                return RedirectToAction(nameof(Index));  // Redirect to the index view
+                _context.Add(signedCharityGrps);    // adds the new charity group to the database
+                await _context.SaveChangesAsync();   // saves changes asynchronously
+                return RedirectToAction(nameof(Index));  // redirects to the index view
             }
             return View(signedCharityGrps);  // If the model state is valid, return the view with the charity group details
         }
@@ -121,7 +121,7 @@ namespace AvcolGrpsCharity.Controllers
             {
                 return NotFound(); // If the charity group is not found, return a NotFound result
             }
-            return View(signedCharityGrps); // Return the charity group details to the view for editing
+            return View(signedCharityGrps); // returns the charity group details to the view for editing
         }
 
         // POST: SignedCharityGrps/Edit/5
@@ -143,7 +143,7 @@ namespace AvcolGrpsCharity.Controllers
                     _context.Update(signedCharityGrps);  // Update the charity group in the database
                     await _context.SaveChangesAsync();  // Save changes asynchronously
                 }
-                catch (DbUpdateConcurrencyException) // Catch concurrency exceptions
+                catch (DbUpdateConcurrencyException) // catches concurrency exceptions
                 {
                     if (!SignedCharityGrpsExists(signedCharityGrps.CharityGrpID)) // If the charity group does not exist, return a NotFound result
                     {
@@ -151,10 +151,10 @@ namespace AvcolGrpsCharity.Controllers
                     }
                     else
                     {
-                        throw; // Rethrow the exception if it's not a concurrency issue
+                        throw; // rethrows the exception if it's not a concurrency issue
                     }
                 }
-                return RedirectToAction(nameof(Index)); // Redirect to the index view
+                return RedirectToAction(nameof(Index)); // redirects to the index view
             }
             return View(signedCharityGrps); // If the model state is valid, return the view with the charity group details
         }
@@ -175,7 +175,7 @@ namespace AvcolGrpsCharity.Controllers
                 return NotFound(); // If the charity group is not found, return a NotFound result
             }
 
-            return View(signedCharityGrps); // Return the charity group details to the view for confirmation of deletion
+            return View(signedCharityGrps); // returns the charity group details to the view for confirmation of deletion
         }
 
         // POST: SignedCharityGrps/Delete/5
@@ -188,17 +188,17 @@ namespace AvcolGrpsCharity.Controllers
             var signedCharityGrps = await _context.SignedCharityGrps.FindAsync(id); // Fetching the charity group details from the database
             if (signedCharityGrps != null)
             {
-                _context.SignedCharityGrps.Remove(signedCharityGrps); // Remove the charity group from the database
+                _context.SignedCharityGrps.Remove(signedCharityGrps); // removes the charity group from the database
             }
 
-            await _context.SaveChangesAsync(); // Save changes asynchronously
-            return RedirectToAction(nameof(Index)); // Redirect to the index view
+            await _context.SaveChangesAsync(); // saves changes asynchronously
+            return RedirectToAction(nameof(Index)); // redirects to the index view
         }
 
         // This method checks if a signed charity group exists in the database by ID.
         private bool SignedCharityGrpsExists(int id)
         {
-            return _context.SignedCharityGrps.Any(e => e.CharityGrpID == id); // Return true if the charity group exists, otherwise false
+            return _context.SignedCharityGrps.Any(e => e.CharityGrpID == id); // returns true if the charity group exists, otherwise false
         }
     }
 }

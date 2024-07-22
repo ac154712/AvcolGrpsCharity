@@ -1,36 +1,47 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using AvcolGrpsCharity.Areas.Identity.Data;
-var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("AvcolGrpsCharityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AvcolGrpsCharityDbContextConnection' not found.");
+using Microsoft.AspNetCore.Hosting; 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting; 
+using Microsoft.Extensions.Logging; 
+using AvcolGrpsCharity.Data; 
+using System; 
+using AvcolGrpsCharity.Areas.Identity.Data; 
 
-builder.Services.AddDbContext<AvcolGrpsCharityDbContext>(options => options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AvcolGrpsCharityDbContext>();
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+namespace AvcolGrpsCharity
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public class Program
+    {
+        public static void Main(string[] args) 
+        {
+            var host = CreateHostBuilder(args).Build(); // Builds the host
+
+            CreateDbIfNotExists(host); // Ensures the database is created if it doesn't exist
+
+            host.Run(); // runs the host
+        }
+
+        private static void CreateDbIfNotExists(IHost host) // Method to ensure database creation
+        {
+            using (var scope = host.Services.CreateScope()) // creates a scope for retrieving services
+            {
+                var services = scope.ServiceProvider; // gets the service provider
+                try
+                {
+                    var context = services.GetRequiredService<AvcolGrpsCharityDbContext>(); // gets the database context service
+                    DbInitializer.Initialize(context); // initializes the database
+                }
+                catch (Exception ex) // Catch any exceptions during database initialization
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>(); // gets the logging service
+                    logger.LogError(ex, "An error occurred creating the DB."); // Logs the error
+                }
+            }
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) => // Method to create the host builder
+            Host.CreateDefaultBuilder(args) // creates the default host builder
+                .ConfigureWebHostDefaults(webBuilder => // configures the web host defaults
+                {
+                    webBuilder.UseStartup<Startup>(); // specifies the startup class to use
+                });
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-app.MapRazorPages();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();

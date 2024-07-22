@@ -13,11 +13,11 @@ namespace AvcolGrpsCharity.Models
         [MinLength(5, ErrorMessage = "Category name must contain atleast 5 characters.")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Characters are not allowed.")]
         [Display(Name = "Category")]
-        public string Category_name { get; set; }
+        public string Category_name { get; set; } //name
 
         [ForeignKey("SignedCharityGrps")]
-        [Display(Name = "Charity Group")]
-        public int SignedCharityGrpId { get; set; }
-        public SignedCharityGrps SignedCharityGrps { get; set; }
+        [Display(Name = "Charity Group")] 
+        public int SignedCharityGrpId { get; set; } //foreign key
+        public SignedCharityGrps SignedCharityGrps { get; set; } 
     }
 }

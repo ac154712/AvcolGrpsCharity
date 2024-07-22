@@ -28,10 +28,10 @@ namespace AvcolGrpsCharity.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchNo;
 
-            var signedCharityGrps = from s in _context.Donations
-                                    select s;
+            var donations = from d in _context.Donations
+                                    select d;
 
-            if (searchNo != null)
+            if (searchString != null || searchNo != null)
             {
                 pageNumber = 1;
             }
@@ -42,20 +42,26 @@ namespace AvcolGrpsCharity.Controllers
 
             if (searchNo.HasValue)
             {
-                signedCharityGrps = signedCharityGrps.Where(s => s.DonationAmount == searchNo.Value);
+                donations = donations.Where(d => d.DonationAmount == searchNo.Value);
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.DonationAmount);
+                    donations = donations.OrderByDescending(d => d.DonationAmount);
                     break;
                 case "":
-                    signedCharityGrps = signedCharityGrps.OrderBy(s => s.DonationDate);
+                    donations = donations.OrderBy(d => d.DonationDate);
+                    break;
+                case "date_desc":
+                    donations = donations.OrderByDescending(s => s.DonationDate);
+                    break;
+                default:
+                    donations = donations.OrderBy(s => s.DonationAmount);
                     break;
             }
             int pageSize = 5;
 
-            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<Donations>.CreateAsync(donations.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Donations/Details/5

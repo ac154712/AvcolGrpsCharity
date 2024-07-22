@@ -58,7 +58,7 @@ namespace AvcolGrpsCharity.Controllers
 
             int pageSize = 5;
 
-            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)donors.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<Donors>.CreateAsync(donors.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Donors/Details/5

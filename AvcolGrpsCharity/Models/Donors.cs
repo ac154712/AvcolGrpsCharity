@@ -12,7 +12,7 @@ namespace AvcolGrpsCharity.Models
 
         [Required]
         [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
-        [MinLength(2, ErrorMessage = "Name must containt atleast 2 charaters.")]
+        [MinLength(2, ErrorMessage = "Name must contain atleast 2 charaters.")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Characters are not allowed.")]
         [Display(Name = "Name")]
         public string Donor_name { get; set; }
@@ -26,8 +26,9 @@ namespace AvcolGrpsCharity.Models
         public int SignedCharityGrpId { get; set; }
         public SignedCharityGrps SignedCharityGrps { get; set; }
 
-        public ICollection<Donations> Donations { get; set; } //referening this line of code in Donations model: public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Donations> Donations { get; set; } /*referening this line of code
+                        in Donations model: public ICollection<Enrollment> Enrollments { get; set; } */
 
-        public ICollection<RegisteredUsers> RegistersUsers { get; set; }
+        public ICollection<RegisteredUsers> RegistersUsers { get; set; } //navigation property #2
     }
 }

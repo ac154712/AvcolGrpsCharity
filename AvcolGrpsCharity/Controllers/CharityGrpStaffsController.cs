@@ -28,7 +28,7 @@ namespace AvcolGrpsCharity.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
 
-            var signedCharityGrps = from s in _context.CharityGrpStaff
+            var charitygrpstaff = from s in _context.CharityGrpStaff
                                     select s;
 
             if (searchString != null)
@@ -42,21 +42,21 @@ namespace AvcolGrpsCharity.Controllers
 
             if (!String.IsNullOrEmpty(searchString) )
             {
-                signedCharityGrps = signedCharityGrps.Where(s => s.StaffMember_name.Contains(searchString)
+                charitygrpstaff = charitygrpstaff.Where(s => s.StaffMember_name.Contains(searchString)
                                        || s.StaffMember_name.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    signedCharityGrps = signedCharityGrps.OrderByDescending(s => s.StaffMember_name);
+                    charitygrpstaff = charitygrpstaff.OrderByDescending(s => s.StaffMember_name);
                     break;
                 case "":
-                    signedCharityGrps = signedCharityGrps.OrderBy(s => s.StaffMember_name);
+                    charitygrpstaff = charitygrpstaff.OrderBy(s => s.StaffMember_name);
                     break;
             }
             int pageSize = 5;
 
-            return View(await PaginatedList<SignedCharityGrps>.CreateAsync((IQueryable<SignedCharityGrps>)signedCharityGrps.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<CharityGrpStaff>.CreateAsync(charitygrpstaff.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: CharityGrpStaffs/Details/5

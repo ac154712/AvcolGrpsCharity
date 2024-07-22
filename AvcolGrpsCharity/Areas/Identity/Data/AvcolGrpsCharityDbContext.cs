@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using AvcolGrpsCharity.Models;
+using AvcolGrpsCharity;
 
 namespace AvcolGrpsCharity.Areas.Identity.Data;
 

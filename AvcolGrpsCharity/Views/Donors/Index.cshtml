@@ -1,4 +1,5 @@
 ﻿@model PaginatedList<AvcolGrpsCharity.Models.Donors>
+using AvcolGrpsCharity.Models;
 
     @{
     ViewData["Title"] = "Index";
@@ -29,10 +30,10 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Name</a>
                 </th>
                 <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Email</a>
+                    Email
                 </th>
                 <th>
-                    Signed Charity Groups
+                    Signed Charity Group
                 </th>
                 <th></th>
             </tr>

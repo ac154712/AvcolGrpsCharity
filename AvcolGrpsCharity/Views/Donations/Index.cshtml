@@ -7,7 +7,7 @@
 <h1>Donations</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">[DONATE]</a>
 </p>
 
 <form asp-action="Index" method="get">
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.DonationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Donors.Donor_email)
+                @Html.DisplayFor(modelItem => item.Donors.Donor_name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DonationID">Edit</a> |

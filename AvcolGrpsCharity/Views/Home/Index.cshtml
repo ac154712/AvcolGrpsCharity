@@ -4,5 +4,51 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Avcol Groups Charity</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p></p>
 </div>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AvcolGrpsCharity.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <center>
+    <div class="container">
+        <!-- Login/Register  -->
+        <div class="mb-4">
+            <h2>Login/Register to access more! </h2>
+                <a class="btn btn-primary" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                <a class="btn btn-secondary" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </div>
+
+        <!-- browse now -->
+        <div class="mb-4">
+            <h2>Ready to browse our Charity Groups?</h2>
+                <a class="btn btn-info" asp-controller="SignedCharityGrps" asp-action="Index">Choose Charity</a>
+                <a class="btn btn-warning" asp-controller="CharityCategories" asp-action="Index">Choose Category</a>
+        </div>
+
+        <!-- donate button-->
+        <div class="mb-4">
+            <h2>Straight up?</h2>
+                <a class="btn btn-success" asp-area="" asp-controller="Donations" asp-action="Index">Donate</a>
+        </div>
+
+        <div class="mb-5">
+            <h2>General Charity Actions</h2>
+                <a class="btn btn-primary" asp-controller="CharityGrpStaffs" asp-action="Index">View Staff</a>
+                <a class="btn btn-secondary" asp-controller="SignedCharityGrps" asp-action="Index">Check Charity Details</a>
+        </div>
+        
+    </div>
+    </center>
+
+</body>
+</html>

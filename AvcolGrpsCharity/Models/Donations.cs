@@ -24,8 +24,11 @@ namespace AvcolGrpsCharity.Models
         [Range(typeof(DateTime), "1/1/2023", "12/31/2029", ErrorMessage = "Invalid date range. Donations are only valid until 2029")]
         public DateTime DonationDate { get; set; } = DateTime.Now; // auto generates to current date and time
 
-        [ForeignKey("Donors")]
-        public int DonorID { get; set; }
-        public Donors Donors { get; set; } //navigation property
+        [ForeignKey("SignedCharityGrps")]
+        public int SignedCharityGrpId { get; set; }
+        public SignedCharityGrps SignedCharityGrps { get; set; } //navigation property
+
+        public ICollection<Donors> Donors { get; set; } /*referening this line of code
+                        in Donations model: public ICollection<Enrollment> Enrollments { get; set; } */
     }
 }

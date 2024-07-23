@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.DonationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Donors.Donor_name)
+                @Html.DisplayFor(modelItem => item.SignedCharityGrps.CharityGrpID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DonationID">Edit</a> |

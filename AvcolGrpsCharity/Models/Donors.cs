@@ -22,12 +22,11 @@ namespace AvcolGrpsCharity.Models
         [Display(Name = "Email")]
         public string Donor_email { get; set; }
 
-        [ForeignKey("SignedCharityGrps")]
-        public int SignedCharityGrpId { get; set; }
-        public SignedCharityGrps SignedCharityGrps { get; set; }
+        [ForeignKey("DonationID")]
+        public int DonationId { get; set; }
+        public Donations Donations { get; set; }
 
-        public ICollection<Donations> Donations { get; set; } /*referening this line of code
-                        in Donations model: public ICollection<Enrollment> Enrollments { get; set; } */
+        
 
         public ICollection<RegisteredUsers> RegistersUsers { get; set; } //navigation property #2
     }

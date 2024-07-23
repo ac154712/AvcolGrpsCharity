@@ -22,7 +22,7 @@ namespace AvcolGrpsCharity.Models
         [Display(Name = "Email")]
         public string Donor_email { get; set; }
 
-        [ForeignKey("DonationID")]
+        [ForeignKey("DonationId")]
         public int DonationId { get; set; }
         public Donations Donations { get; set; }
 

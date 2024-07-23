@@ -73,7 +73,7 @@ namespace AvcolGrpsCharity.Controllers
             }
 
             var donations = await _context.Donations
-                .Include(d => d.Donors)
+                .Include(d => d.SignedCharityGrpId)
                 .FirstOrDefaultAsync(m => m.DonationID == id);
             if (donations == null)
             {
@@ -86,7 +86,7 @@ namespace AvcolGrpsCharity.Controllers
         // GET: Donations/Create
         public IActionResult Create()
         {
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID");
+            ViewData["SignedCharityGrpsId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID");
             return View();
         }
 
@@ -104,7 +104,7 @@ namespace AvcolGrpsCharity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SignedCharityGrpsID"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.SignedCharityGrpId);
+            ViewData["SignedCharityGrpsId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID", donations.SignedCharityGrpId);
             return View(donations);
         }
 
@@ -121,7 +121,7 @@ namespace AvcolGrpsCharity.Controllers
             {
                 return NotFound();
             }
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID" , donations.SignedCharityGrpId);
+            ViewData["SignedCharityGrpsId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID", donations.SignedCharityGrpId);
             return View(donations);
         }
 
@@ -131,7 +131,7 @@ namespace AvcolGrpsCharity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("DonationID,DonationAmount,DonationMessage,DonationDate,DonorID")] Donations donations)
+        public async Task<IActionResult> Edit(int id, [Bind("DonationID,DonationAmount,DonationMessage,DonationDate,SignedCharityGrpsId")] Donations donations)
         {
             if (id != donations.DonationID)
             {
@@ -158,7 +158,7 @@ namespace AvcolGrpsCharity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SignedCharityGrpsId"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.SignedCharityGrpId);
+            ViewData["SignedCharityGrpsId"] = new SelectList(_context.SignedCharityGrps, "CharityGrpID", "CharityGrpID", donations.SignedCharityGrpId);
             return View(donations);
         }
 
@@ -171,7 +171,7 @@ namespace AvcolGrpsCharity.Controllers
             }
 
             var donations = await _context.Donations
-                .Include(d => d.Donors)
+                .Include(d => d.SignedCharityGrps)
                 .FirstOrDefaultAsync(m => m.DonationID == id);
             if (donations == null)
             {

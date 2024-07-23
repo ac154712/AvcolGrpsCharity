@@ -36,7 +36,7 @@ namespace AvcolGrpsCharity.Data
                 context.SignedCharityGrps.Add(s);
             }
             context.SaveChanges();
-
+            
             // fetching the primary IDs of the seeded charity groups PK and make a variable for the key to be put
             var saveTreesId = context.SignedCharityGrps.Single(s => s.ChartyGrp_Name == "Save Trees").CharityGrpID;
             var hungerGamesId = context.SignedCharityGrps.Single(s => s.ChartyGrp_Name == "Hunger Games").CharityGrpID;
@@ -48,32 +48,14 @@ namespace AvcolGrpsCharity.Data
             var healthcareAccessId = context.SignedCharityGrps.Single(s => s.ChartyGrp_Name == "Healthcare Access").CharityGrpID;
             var elderlyCareSupportId = context.SignedCharityGrps.Single(s => s.ChartyGrp_Name == "Elderly Care Support").CharityGrpID;
             var disasterReliefAidId = context.SignedCharityGrps.Single(s => s.ChartyGrp_Name == "Disaster Relief Aid").CharityGrpID; //i did this so i don't have to repeat myself in foreign key seeding to other tables
+            
 
-            // seeding Donors if theres no data
-            if (context.Donors.Any()) return;
-
-            var donors = new Donors[]
-            {
-                new Donors{Donor_name="Baldo Christian",Donor_email= "baldochristian@gmail.com", DonorID = context.Donors.Single(d => d.Donor_name == "Kaito Tik").DonorID},
-                new Donors{Donor_name="Kaito Tik",Donor_email= "kaitotik@gmail.com",DonorID = context.Donors.Single(d => d.Donor_name == "Maria Lopez").DonorID},
-                new Donors { Donor_name = "Maria Lopez", Donor_email = "marialopez@gmail.com", DonorID = context.Donors.Single(d => d.Donor_name == "John Smith").DonorID},
-                new Donors { Donor_name = "John Smith", Donor_email = "johnsmith@yahoo.com", DonorID = context.Donors.Single(d => d.Donor_name == "Emily Davis").DonorID},
-                new Donors { Donor_name = "Emily Davis", Donor_email = "emilydavis@hotmail.com",  DonorID = context.Donors.Single(d => d.Donor_name == "Michael Johnson").DonorID},
-                new Donors { Donor_name = "Michael Johnson", Donor_email = "michaeljohnson@gmail.com",  DonorID = context.Donors.Single(d => d.Donor_name == "Baldo Christian").DonorID},
-                new Donors { Donor_name = "Linda Martinez", Donor_email = "lindamartinez@yahoo.com", DonorID = context.Donors.Single(d => d.Donor_name == "Daniel Jackson").DonorID},
-                new Donors { Donor_name = "Robert Brown", Donor_email = "robertbrown@gmail.com", DonorID = context.Donors.Single(d => d.Donor_name == "Linda Martinez").DonorID},
-                new Donors { Donor_name = "Amanda Lee", Donor_email = "amandalee@hotmail.com",DonorID = context.Donors.Single(d => d.Donor_name == "Robert Brown").DonorID},
-                new Donors { Donor_name = "Daniel Jackson", Donor_email = "danieljackson@gmail.com",DonorID = context.Donors.Single(d => d.Donor_name == "Amanda Lee").DonorID}
-            };
-            foreach (Donors o in donors)
-            {
-                context.Donors.Add(o);
-            }
-            context.SaveChanges(); ;
 
             // looking for any donations data
-            if (context.Donations.Any()) return;
-
+            if (context.Donations.Any())
+            {
+                return;
+            }
             var donations = new Donations[]
             {
                 new Donations{DonationAmount = 150.00m, DonationMessage = "Supporting the cause!", DonationDate = DateTime.Now,SignedCharityGrpId= saveTreesId},
@@ -93,9 +75,12 @@ namespace AvcolGrpsCharity.Data
             }
             context.SaveChanges();
 
+            
             // seeding CharityGrpStaff
-            if (context.CharityGrpStaff.Any()) return;
-
+            if (context.CharityGrpStaff.Any())
+            {
+                return;
+            }
             var staff = new CharityGrpStaff[]
             {
                 new CharityGrpStaff { StaffMember_name = "Ramee", StaffMember_email = "ramee@gmail.com", StaffMember_phonenum = "+64938595793", SignedCharityGrpId = saveTreesId },
@@ -116,8 +101,10 @@ namespace AvcolGrpsCharity.Data
             context.SaveChanges();
 
             // Seeding Categories model
-            if (context.CharityCategory.Any()) return;
-
+            if (context.CharityCategory.Any())
+            {
+                return;
+            }
             var categories = new CharityCategory[]
             {
                 new CharityCategory{SignedCharityGrpId= saveTreesId, Category_name = "Environment"},
@@ -136,6 +123,30 @@ namespace AvcolGrpsCharity.Data
                 context.CharityCategory.Add(c);
             }
             context.SaveChanges();
+
+
+            // seeding Donors if theres no data
+            var donors = new Donors[]                                                        //DonorID = context.Donors.Single(d => d.Donor_name == "Amanda Lee").DonorID}
+            {                                                                                //DonationId = context.Donations.Single(d => d.DonationMessage == "Supporting the cause!").DonationId
+                new Donors{Donor_name="Baldo Christian",Donor_email= "baldochristian@gmail.com", DonationId = context.Donations.Single(d => d.DonationAmount == 150.00m).DonationID},
+                new Donors{Donor_name="Kaito Tik",Donor_email= "kaitotik@gmail.com",DonationId = context.Donations.Single(d => d.DonationAmount == 200.00m).DonationID},
+                new Donors { Donor_name = "Maria Lopez", Donor_email = "marialopez@gmail.com", DonationId = context.Donations.Single(d => d.DonationAmount == 300.00m).DonationID},
+                new Donors { Donor_name = "John Smith", Donor_email = "johnsmith@yahoo.com", DonationId = context.Donations.Single(d => d.DonationAmount == 250.00m).DonationID},
+                new Donors { Donor_name = "Emily Davis", Donor_email = "emilydavis@hotmail.com",  DonationId = context.Donations.Single(d => d.DonationAmount == 400.00m).DonationID},
+                new Donors { Donor_name = "Michael Johnson", Donor_email = "michaeljohnson@gmail.com",  DonationId = context.Donations.Single(d => d.DonationAmount == 100.00m).DonationID},
+                new Donors { Donor_name = "Linda Martinez", Donor_email = "lindamartinez@yahoo.com", DonationId = context.Donations.Single(d => d.DonationAmount == 175.00m).DonationID},
+                new Donors { Donor_name = "Robert Brown", Donor_email = "robertbrown@gmail.com", DonationId = context.Donations.Single(d => d.DonationAmount == 220.00m).DonationID},
+                new Donors { Donor_name = "Amanda Lee", Donor_email = "amandalee@hotmail.com", DonationId = context.Donations.Single(d => d.DonationAmount == 300.00m).DonationID},
+                new Donors { Donor_name = "Daniel Jackson", Donor_email = "danieljackson@gmail.com", DonationId = context.Donations.Single(d => d.DonationAmount == 150.00m).DonationID}
+            };
+            foreach (Donors o in donors)
+            {
+                context.Donors.Add(o);
+            }
+            context.SaveChanges(); 
+
+
+            
         }
     }
 }

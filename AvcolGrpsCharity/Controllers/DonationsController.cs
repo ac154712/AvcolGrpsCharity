@@ -96,7 +96,7 @@ namespace AvcolGrpsCharity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("DonationID,DonationAmount,DonationMessage,DonationDate,SignedCharityGrpId")] Donations donations)
+        public async Task<IActionResult> Create([Bind("DonationID,DonationAmount,DonationMessage,DonationDate,DonorID")] Donations donations)
         {
             if (!ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace AvcolGrpsCharity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SignedCharityGrpsID"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.SignedCharityGrpId);
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.DonorID);
             return View(donations);
         }
 
@@ -121,7 +121,7 @@ namespace AvcolGrpsCharity.Controllers
             {
                 return NotFound();
             }
-            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID" , donations.SignedCharityGrpId);
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID" , donations.DonorID);
             return View(donations);
         }
 
@@ -158,7 +158,7 @@ namespace AvcolGrpsCharity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SignedCharityGrpsId"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.SignedCharityGrpId);
+            ViewData["DonorID"] = new SelectList(_context.Donors, "DonorID", "DonorID", donations.DonorID);
             return View(donations);
         }
 

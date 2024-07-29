@@ -54,16 +54,16 @@ namespace AvcolGrpsCharity.Data
 
             var donors = new Donors[]
             {
-                new Donors{Donor_name="Baldo Christian",Donor_email= "baldochristian@gmail.com", DonorID = context.Donors.Single(d => d.Donor_name == "Kaito Tik").DonorID},
-                new Donors{Donor_name="Kaito Tik",Donor_email= "kaitotik@gmail.com",DonorID = context.Donors.Single(d => d.Donor_name == "Maria Lopez").DonorID},
-                new Donors { Donor_name = "Maria Lopez", Donor_email = "marialopez@gmail.com", DonorID = context.Donors.Single(d => d.Donor_name == "John Smith").DonorID},
-                new Donors { Donor_name = "John Smith", Donor_email = "johnsmith@yahoo.com", DonorID = context.Donors.Single(d => d.Donor_name == "Emily Davis").DonorID},
-                new Donors { Donor_name = "Emily Davis", Donor_email = "emilydavis@hotmail.com",  DonorID = context.Donors.Single(d => d.Donor_name == "Michael Johnson").DonorID},
-                new Donors { Donor_name = "Michael Johnson", Donor_email = "michaeljohnson@gmail.com",  DonorID = context.Donors.Single(d => d.Donor_name == "Baldo Christian").DonorID},
-                new Donors { Donor_name = "Linda Martinez", Donor_email = "lindamartinez@yahoo.com", DonorID = context.Donors.Single(d => d.Donor_name == "Daniel Jackson").DonorID},
-                new Donors { Donor_name = "Robert Brown", Donor_email = "robertbrown@gmail.com", DonorID = context.Donors.Single(d => d.Donor_name == "Linda Martinez").DonorID},
-                new Donors { Donor_name = "Amanda Lee", Donor_email = "amandalee@hotmail.com",DonorID = context.Donors.Single(d => d.Donor_name == "Robert Brown").DonorID},
-                new Donors { Donor_name = "Daniel Jackson", Donor_email = "danieljackson@gmail.com",DonorID = context.Donors.Single(d => d.Donor_name == "Amanda Lee").DonorID}
+                new Donors{Donor_name="Baldo Christian",Donor_email= "baldochristian@gmail.com",SignedCharityGrpId= saveTreesId},
+                new Donors{Donor_name="Kaito Tik",Donor_email= "kaitotik@gmail.com",SignedCharityGrpId= hungerGamesId},
+                new Donors { Donor_name = "Maria Lopez", Donor_email = "marialopez@gmail.com", SignedCharityGrpId = noToLitteringId },
+                new Donors { Donor_name = "John Smith", Donor_email = "johnsmith@yahoo.com", SignedCharityGrpId = giveBloodId },
+                new Donors { Donor_name = "Emily Davis", Donor_email = "emilydavis@hotmail.com", SignedCharityGrpId = petShelterId },
+                new Donors { Donor_name = "Michael Johnson", Donor_email = "michaeljohnson@gmail.com", SignedCharityGrpId = cleanOceansId },
+                new Donors { Donor_name = "Linda Martinez", Donor_email = "lindamartinez@yahoo.com", SignedCharityGrpId = educationForAllId },
+                new Donors { Donor_name = "Robert Brown", Donor_email = "robertbrown@gmail.com", SignedCharityGrpId = healthcareAccessId },
+                new Donors { Donor_name = "Amanda Lee", Donor_email = "amandalee@hotmail.com", SignedCharityGrpId = elderlyCareSupportId },
+                new Donors { Donor_name = "Daniel Jackson", Donor_email = "danieljackson@gmail.com", SignedCharityGrpId = disasterReliefAidId }
             };
             foreach (Donors o in donors)
             {
@@ -76,16 +76,16 @@ namespace AvcolGrpsCharity.Data
 
             var donations = new Donations[]
             {
-                new Donations{DonationAmount = 150.00m, DonationMessage = "Supporting the cause!", DonationDate = DateTime.Now,SignedCharityGrpId= saveTreesId},
-                new Donations{DonationAmount = 200.00m, DonationMessage = "Keep up the good work!", DonationDate = DateTime.Now, SignedCharityGrpId= hungerGamesId},
-                new Donations{DonationAmount = 300.00m, DonationMessage = "Every little bit helps.", DonationDate = DateTime.Now, SignedCharityGrpId = noToLitteringId },
-                new Donations{DonationAmount = 250.00m, DonationMessage = "Proud to support this charity.", DonationDate = DateTime.Now, SignedCharityGrpId = giveBloodId },
-                new Donations{DonationAmount = 400.00m, DonationMessage = "For a better future.", DonationDate = DateTime.Now, SignedCharityGrpId = petShelterId },
-                new Donations{DonationAmount = 100.00m, DonationMessage = "Hope everyone who is sick in the words feels better!", DonationDate = DateTime.Now,SignedCharityGrpId = cleanOceansId },
-                new Donations{DonationAmount = 175.00m, DonationMessage = "Giving back to the community.", DonationDate = DateTime.Now, SignedCharityGrpId = educationForAllId },
-                new Donations{DonationAmount = 220.00m, DonationMessage = "In memory of a loved one.", DonationDate = DateTime.Now, SignedCharityGrpId = healthcareAccessId },
-                new Donations{DonationAmount = 300.00m, DonationMessage = "Supporting education for all.", DonationDate = DateTime.Now,  SignedCharityGrpId = elderlyCareSupportId },
-                new Donations{DonationAmount = 150.00m, DonationMessage = "Helping those in need.", DonationDate = DateTime.Now, SignedCharityGrpId = disasterReliefAidId }
+                new Donations{DonationAmount = 150.00m, DonationMessage = "Supporting the cause!", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Kaito Tik").DonorID},
+                new Donations{DonationAmount = 200.00m, DonationMessage = "Keep up the good work!", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Maria Lopez").DonorID},
+                new Donations{DonationAmount = 300.00m, DonationMessage = "Every little bit helps.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "John Smith").DonorID},
+                new Donations{DonationAmount = 250.00m, DonationMessage = "Proud to support this charity.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Emily Davis").DonorID},
+                new Donations{DonationAmount = 400.00m, DonationMessage = "For a better future.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Michael Johnson").DonorID},
+                new Donations{DonationAmount = 100.00m, DonationMessage = "Hope everyone who is sick in the words feels better!", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Baldo Christian").DonorID},
+                new Donations{DonationAmount = 175.00m, DonationMessage = "Giving back to the community.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Daniel Jackson").DonorID},
+                new Donations{DonationAmount = 220.00m, DonationMessage = "In memory of a loved one.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Linda Martinez").DonorID},
+                new Donations{DonationAmount = 300.00m, DonationMessage = "Supporting education for all.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Robert Brown").DonorID},
+                new Donations{DonationAmount = 150.00m, DonationMessage = "Helping those in need.", DonationDate = DateTime.Now, DonorID = context.Donors.Single(d => d.Donor_name == "Amanda Lee").DonorID}
             };
             foreach (Donations d in donations)
             {

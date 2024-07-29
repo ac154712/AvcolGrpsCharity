@@ -25,11 +25,11 @@ namespace AvcolGrpsCharity.Models
         public string CharityGrp_email { get; set; }
 
         [Required]
-        [RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format (+64 01234567")] // using the phone format for this data field
+        [RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format")] // using the phone format for this data field
         [Display(Name = "Group Phone Number")]
         public string CharityGrp_phone { get; set; }
 
-        public ICollection<Donations> DonationId { get; set; } // colecting DonorsId from Donors table (navigation property2)
+        public ICollection<Donors> DonorsId { get; set; } // colecting DonorsId from Donors table (navigation property2)
         public ICollection<CharityGrpStaff> CharityGrpStaffId { get; set; }
 
     }

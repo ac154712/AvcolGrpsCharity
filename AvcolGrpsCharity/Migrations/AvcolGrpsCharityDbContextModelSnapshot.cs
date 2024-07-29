@@ -95,12 +95,12 @@ namespace AvcolGrpsCharity.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("SignedCharityGrpId")
+                    b.Property<int>("DonorID")
                         .HasColumnType("int");
 
                     b.HasKey("DonationID");
 
-                    b.HasIndex("SignedCharityGrpId");
+                    b.HasIndex("DonorID");
 
                     b.ToTable("Donations");
                 });
@@ -113,12 +113,6 @@ namespace AvcolGrpsCharity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonorID"));
 
-                    b.Property<int>("DonationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DonationsDonationID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Donor_email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -128,9 +122,12 @@ namespace AvcolGrpsCharity.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("SignedCharityGrpId")
+                        .HasColumnType("int");
+
                     b.HasKey("DonorID");
 
-                    b.HasIndex("DonationsDonationID");
+                    b.HasIndex("SignedCharityGrpId");
 
                     b.ToTable("Donors");
                 });
@@ -430,24 +427,24 @@ namespace AvcolGrpsCharity.Migrations
 
             modelBuilder.Entity("AvcolGrpsCharity.Models.Donations", b =>
                 {
+                    b.HasOne("AvcolGrpsCharity.Models.Donors", "Donors")
+                        .WithMany("Donations")
+                        .HasForeignKey("DonorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Donors");
+                });
+
+            modelBuilder.Entity("AvcolGrpsCharity.Models.Donors", b =>
+                {
                     b.HasOne("AvcolGrpsCharity.Models.SignedCharityGrps", "SignedCharityGrps")
-                        .WithMany("DonationId")
+                        .WithMany("DonorsId")
                         .HasForeignKey("SignedCharityGrpId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("SignedCharityGrps");
-                });
-
-            modelBuilder.Entity("AvcolGrpsCharity.Models.Donors", b =>
-                {
-                    b.HasOne("AvcolGrpsCharity.Models.Donations", "Donations")
-                        .WithMany("Donors")
-                        .HasForeignKey("DonationsDonationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Donations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -512,13 +509,10 @@ namespace AvcolGrpsCharity.Migrations
                     b.Navigation("Donors");
                 });
 
-            modelBuilder.Entity("AvcolGrpsCharity.Models.Donations", b =>
-                {
-                    b.Navigation("Donors");
-                });
-
             modelBuilder.Entity("AvcolGrpsCharity.Models.Donors", b =>
                 {
+                    b.Navigation("Donations");
+
                     b.Navigation("RegistersUsers");
                 });
 
@@ -526,7 +520,7 @@ namespace AvcolGrpsCharity.Migrations
                 {
                     b.Navigation("CharityGrpStaffId");
 
-                    b.Navigation("DonationId");
+                    b.Navigation("DonorsId");
                 });
 #pragma warning restore 612, 618
         }

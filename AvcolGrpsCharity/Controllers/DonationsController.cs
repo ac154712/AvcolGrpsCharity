@@ -100,6 +100,8 @@ namespace AvcolGrpsCharity.Controllers
         {
             if (!ModelState.IsValid)
             {
+                donations.DonationDate = DateTime.Now; // Set the current date
+
                 _context.Add(donations);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -21,7 +21,8 @@ namespace AvcolGrpsCharity.Models
 
         [Required(AllowEmptyStrings = true)] // data field must not be null but user can not input if they want
         //[Range(DateTime.ErrorMessage = "Can't input future dates")]
-        [Range(typeof(DateTime), "1/1/2023", "12/31/2029", ErrorMessage = "Invalid date range. Donations are only valid until 2029")]
+        //[Range(typeof(DateTime), "1/1/2023", "12/31/2029", ErrorMessage = "Invalid date range. Donations are only valid until 2029")]
+        [DataType(DataType.Date)]
         public DateTime DonationDate { get; set; } = DateTime.Now; // auto generates to current date and time
 
         [ForeignKey("Donors")]
